@@ -479,9 +479,9 @@ section{padding:90px 24px;max-width:1000px;margin:0 auto;position:relative;z-ind
         <p class="event-time">6:30 PM</p>
         <p class="event-note">Onwards · Dinner to follow</p>
       </div>
-      <button class="remind-btn"
-onclick="window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Reception+-+Tamilselvan+%26+Sowmiya&dates=20260623T130000Z/20260623T163000Z&location=Saroj+Vedha+Narayanan+Thirumana+Mandapam,+Thiruttani&details=Wedding+Reception+of+Tamilselvan+and+Sowmiya','_blank')">
-Add Reminder
+     <button class="remind-btn"
+onclick="window.location.href='reception.ics'">
+📅 Add to Calendar
 </button>
     </div>
     <div class="event-card reveal-right d2">
@@ -494,8 +494,8 @@ Add Reminder
         <p class="event-note">Thirumanam Muhurtham</p>
       </div>
       <button class="remind-btn"
-onclick="window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Reception+-+Tamilselvan+%26+Sowmiya&dates=20260623T130000Z/20260623T163000Z&location=Saroj+Vedha+Narayanan+Thirumana+Mandapam,+Thiruttani&details=Wedding+Reception+of+Tamilselvan+and+Sowmiya','_blank')">
-Add Reminder
+onclick="window.location.href='wedding.ics'">
+📅 Add to Calendar
 </button>
     </div>
   </div>
@@ -755,6 +755,39 @@ sparkStyle.textContent=`@keyframes sparkleOut{
   100%{opacity:0;transform:translate(-50%,-150%) scale(0.3);}
 }`;
 document.head.appendChild(sparkStyle);
+function addReminder(type) {
+  let icsFile = "";
+
+  if (type === "reception") {
+    icsFile = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Wedding Reception - Tamilselvan & Sowmiya
+DTSTART:20260623T130000Z
+DTEND:20260623T163000Z
+LOCATION:Saroj Vedha Narayanan Thirumana Mandapam, Thiruttani
+DESCRIPTION:Wedding Reception
+END:VEVENT
+END:VCALENDAR`;
+  } else {
+    icsFile = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Wedding Muhurtham - Tamilselvan & Sowmiya
+DTSTART:20260624T003000Z
+DTEND:20260624T013000Z
+LOCATION:Saroj Vedha Narayanan Thirumana Mandapam, Thiruttani
+DESCRIPTION:Wedding Ceremony
+END:VEVENT
+END:VCALENDAR`;
+  }
+
+  const blob = new Blob([icsFile], { type: "text/calendar" });
+  const url = URL.createObjectURL(blob);
+
+  // Open calendar file directly
+  window.location.href = url;
+}
 </script>
 </body>
 </html>
